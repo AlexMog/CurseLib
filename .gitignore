@@ -13,3 +13,5 @@ natives/
 .classpath
 .project/
 bin/
+client/
+src/main/java/cursevoicelib/LocalMainTest.java

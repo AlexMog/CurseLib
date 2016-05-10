@@ -18,6 +18,7 @@ import cursevoicelib.wsclient.beans.Packet;
 public class Client extends ClientRewrite {
     private String mMachineKey, mSessionId;
     private int mUserId;
+    private Interpretator mInterpretator = new Interpretator(this);
 
     public Client(URI serverURI) throws KeyManagementException, NoSuchAlgorithmException, IOException {
         super(serverURI);
@@ -57,6 +58,7 @@ public class Client extends ClientRewrite {
     @Override
     public void onMessage(String message) {
         Log.info(message);
+        mInterpretator.interpretate(message);
     }
 
     @Override

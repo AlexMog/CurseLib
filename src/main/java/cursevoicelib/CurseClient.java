@@ -57,7 +57,7 @@ public class CurseClient {
         Log.info("CurseClient initialised.");
     }
     
-    public String generateMachineKey() {
+    public static String generateMachineKey() {
         StringBuilder ret = new StringBuilder(MachineKeyTemplate);
         for (int i = 0; i < ret.length(); ++i) {
             char c = ret.charAt(i);
@@ -91,9 +91,4 @@ public class CurseClient {
         mClient.connect();
     }
     
-    public static void main(String[] args) throws Exception {
-        CurseClient client = new CurseClient("TEST", "TEST");
-        client.authenticate();
-        client.connectWS();
-    }
 }

@@ -83,7 +83,12 @@ Body: TODO
 
 Sended by the client to send a new message.
 
-Body: TODO
+Body:
+
+- AttachmentID (String) : Unknown.
+- ClientID (String) : Ouer client id?!
+- ConversationID (String) : The conversation ID to send to
+- Message (String) : The message.
 
 ### 705131365 
 

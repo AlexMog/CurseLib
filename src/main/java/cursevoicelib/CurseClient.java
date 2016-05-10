@@ -17,6 +17,7 @@ import cursevoicelib.restapi.beans.SessionRequestBean;
 import cursevoicelib.util.log.Log;
 import cursevoicelib.util.log.SimpleFormatter;
 import cursevoicelib.wsclient.Client;
+import cursevoicelib.wsclient.beans.SendMessageBean;
 
 /***
  * API access to the curse client systems
@@ -90,5 +91,28 @@ public class CurseClient {
         if (!mApi.getLoginAccessor().isAuthenticated()) authenticate();
         mClient.connect();
     }
+   
+    /***
+     * 
+     * @param conversationId Id of the conversation
+     * @param message message to send
+     * @param attachmentId Attachement ID (if no attachment, use: "00000000-0000-0000-0000-000000000000")
+     */
+    public void sendMessage(String conversationId, String message, String attachmentId) {
+        SendMessageBean bean = new SendMessageBean();
+        bean.Body.AttachmentID = attachmentId;
+        bean.Body.ClientID = generateMachineKey();
+        bean.Body.ConversationID = conversationId;
+        bean.Body.Message = message;
+        mClient.sendPacket(bean);
+    }
     
+    /**
+     * Send message to a conversation
+     * @param conversationId conversation id
+     * @param message message to send
+     */
+    public void sendMessage(String conversationId, String message) {
+        sendMessage(conversationId, message, "00000000-0000-0000-0000-000000000000");
+    }
 }

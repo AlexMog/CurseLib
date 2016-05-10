@@ -37,6 +37,7 @@ public class Client extends ClientRewrite {
 
     @Override
     public void onOpen(ServerHandshake handshakedata) {
+        mInterpretator.onOpen(handshakedata);
         JoinRequestBean bean = new JoinRequestBean();
         bean.Body.CipherAlgorithm = 0;
         bean.Body.CipherStrength = 0;
@@ -46,10 +47,10 @@ public class Client extends ClientRewrite {
         bean.Body.SessionID = mSessionId;
         bean.Body.Status = 1;
         bean.Body.UserID = mUserId;
-        sendBean(bean);
+        sendPacket(bean);
     }
     
-    public void sendBean(Packet bean) {
+    public void sendPacket(Packet bean) {
         String toSend = GsonHelper.toJson(bean);
         Log.info("Sending: " + toSend);
         send(toSend);
@@ -64,11 +65,20 @@ public class Client extends ClientRewrite {
     @Override
     public void onClose(int code, String reason, boolean remote) {
         Log.info("Connection closed: " + reason);
+        mInterpretator.onClose(code, reason, remote);
     }
 
     @Override
     public void onError(Exception ex) {
         Log.warn("Error cated on client", ex);
+        mInterpretator.onError(ex);
     }
 
+    public void addListener(ClientListener listener) {
+        mInterpretator.addListener(listener);
+    }
+    
+    public void removeListener(ClientListener listener) {
+        mInterpretator.removeListener(listener);
+    }
 }

@@ -22,6 +22,6 @@ public class ClientTest {
     
     @Test
     public void testIDGeneration() {
-        System.out.println(mClient.generateMachineKey());
+        System.out.println(CurseClient.generateMachineKey());
     }
 }

@@ -19,20 +19,26 @@ public class Client extends ClientRewrite {
     private String mMachineKey, mSessionId;
     private int mUserId;
     private Interpretator mInterpretator = new Interpretator(this);
+    private CurseClient mCurse;
 
-    public Client(URI serverURI) throws KeyManagementException, NoSuchAlgorithmException, IOException {
+    public Client(URI serverURI, CurseClient curse) throws KeyManagementException, NoSuchAlgorithmException, IOException {
         super(serverURI);
         SSLContext sslContext = null;
         sslContext = SSLContext.getInstance("TLS");
         sslContext.init(null, null, null);
 
         setSocket(sslContext.getSocketFactory().createSocket());
+        mCurse = curse;
     }
     
     public void setCredentials(String machineKey, String sessionId, int userId) {
         mMachineKey = machineKey;
         mSessionId = sessionId;
         mUserId = userId;
+    }
+    
+    public CurseClient getCurse() {
+        return mCurse;
     }
 
     @Override

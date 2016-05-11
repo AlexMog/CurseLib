@@ -2,10 +2,11 @@ package cursevoicelib.wsclient;
 
 import org.java_websocket.handshake.ServerHandshake;
 
+import cursevoicelib.CurseClient;
 import cursevoicelib.wsclient.beans.ReceivedMessageBean;
 
 public interface ClientListener {
-    void onMessage(Client client, ReceivedMessageBean bean);
+    void onMessage(CurseClient client, ReceivedMessageBean bean);
     void onClose(int code, String reason, boolean remote);
     void onError(Exception ex);
     void onOpen(ServerHandshake handshakedata);

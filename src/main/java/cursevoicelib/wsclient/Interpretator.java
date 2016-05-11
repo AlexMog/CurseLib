@@ -32,7 +32,7 @@ public class Interpretator {
             Packet packet = GsonHelper.fromJson(fullJson, Packet.class);
             if (packet.TypeID == -635182161) {
                 for (ClientListener l : mListeners) {
-                    l.onMessage(mClient, GsonHelper.fromJson(fullJson, ReceivedMessageBean.class));
+                    l.onMessage(mClient.getCurse(), GsonHelper.fromJson(fullJson, ReceivedMessageBean.class));
                 }
             }
         } catch (Exception e) {

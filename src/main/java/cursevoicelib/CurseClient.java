@@ -17,6 +17,7 @@ import cursevoicelib.restapi.beans.SessionRequestBean;
 import cursevoicelib.util.log.Log;
 import cursevoicelib.util.log.SimpleFormatter;
 import cursevoicelib.wsclient.Client;
+import cursevoicelib.wsclient.ClientListener;
 import cursevoicelib.wsclient.beans.SendMessageBean;
 
 /***
@@ -39,7 +40,7 @@ public class CurseClient {
         this();
         mUsername = username;
         mPassword = password;
-        mClient = new Client(new URI("wss://notifications-v1.curseapp.net/"));
+        mClient = new Client(new URI("wss://notifications-v1.curseapp.net/"), this);
     }
     
     private CurseClient() throws SecurityException, IOException {
@@ -114,5 +115,13 @@ public class CurseClient {
      */
     public void sendMessage(String conversationId, String message) {
         sendMessage(conversationId, message, "00000000-0000-0000-0000-000000000000");
+    }
+    
+    public void addListener(ClientListener listener) {
+        mClient.addListener(listener);
+    }
+    
+    public void removeListener(ClientListener listener) {
+        mClient.removeListener(listener);
     }
 }

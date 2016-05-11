@@ -35,8 +35,9 @@ client.addListener(new ClientListener() {
         System.out.println("I am connected to the tchat!");
     }
     
-    public void onMessage(CurseClient client, ReceivedMessageBean bean) {
-        System.out.println("New message received from @" + bean.Body.SenderName + ": " + bean.Body.Body);
+    public void onMessage(MessageEvent event) {
+        System.out.println("New message received from @"
+            + event.getMessage().getSender().getUsername() + ": " + event.getMessage().getText());
     }
     
     public void onError(Exception ex) {

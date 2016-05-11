@@ -9,6 +9,7 @@ import cursevoicelib.helpers.GsonHelper;
 import cursevoicelib.util.log.Log;
 import cursevoicelib.wsclient.beans.Packet;
 import cursevoicelib.wsclient.beans.ReceivedMessageBean;
+import cursevoicelib.wsclient.events.factories.MessageFactory;
 
 
 public class Interpretator {
@@ -32,7 +33,8 @@ public class Interpretator {
             Packet packet = GsonHelper.fromJson(fullJson, Packet.class);
             if (packet.TypeID == -635182161) {
                 for (ClientListener l : mListeners) {
-                    l.onMessage(mClient.getCurse(), GsonHelper.fromJson(fullJson, ReceivedMessageBean.class));
+                    l.onMessage(MessageFactory.beanToMessage(mClient.getCurse(),
+                            GsonHelper.fromJson(fullJson, ReceivedMessageBean.class)));
                 }
             }
         } catch (Exception e) {

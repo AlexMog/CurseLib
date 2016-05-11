@@ -16,8 +16,8 @@ public class ClientTest {
     
     @Before
     public void init() throws SecurityException, IOException, URISyntaxException, AuthenticationFailedException, KeyManagementException, NoSuchAlgorithmException {
-        mClient = new CurseClient(username, password);
-        mClient.authenticate();
+/*        mClient = new CurseClient(username, password);
+        mClient.authenticate();*/
     }
     
     @Test

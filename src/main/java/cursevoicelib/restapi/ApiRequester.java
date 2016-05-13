@@ -22,6 +22,11 @@ import org.apache.http.impl.client.LaxRedirectStrategy;
 import cursevoicelib.CurseClient;
 import cursevoicelib.helpers.CookieHelper;
 
+/**
+ * This object is used to make requests to an API
+ * @author AlexMog
+ *
+ */
 public class ApiRequester {
     private BasicCookieStore mCookieStore = new BasicCookieStore();
     private CookieHelper mCookieHelper = new CookieHelper(CurseClient.USERDATA_PATH, "cookies.txt");

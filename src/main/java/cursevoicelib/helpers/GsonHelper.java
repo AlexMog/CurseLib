@@ -6,10 +6,6 @@ import com.google.gson.GsonBuilder;
 public class GsonHelper {
     private static final Gson GSON = new GsonBuilder().serializeNulls().create();
     
-    static {
-        
-    }
-    
     public static String toJson(Object o) {
         return GSON.toJson(o);
     }

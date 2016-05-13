@@ -1,9 +1,21 @@
 package cursevoicelib.enums;
 
 public enum ConversationType {
+    /**
+     * Friendship conversation
+     */
     Friendship(0),
+    /**
+     * Group conversation
+     */
     Group(1),
+    /**
+     * AdHoc conversation
+     */
     AdHoc(2),
+    /**
+     * Private conversation
+     */
     GroupPrivateConversation(3);
     
     private final int value;

@@ -16,22 +16,41 @@ public class RestApi {
     private final SessionsAccessor mSessionsAccessor = new SessionsAccessor(mRequester);
     private final ContactsAccessor mContactsAccessor = new ContactsAccessor(mRequester);
     
+    /**
+     * Return true if the client is already authenticated
+     * @return
+     */
     public boolean isAuthenticated() {
         return mLoginAccessor.isAuthenticated();
     }
     
+    /**
+     * Clears the cookies
+     */
     public void clearCookies() {
         mRequester.clearCookies();
     }
     
+    /**
+     * Get the login accessor for the Logins API
+     * @return
+     */
     public LoginAccessor getLoginAccessor() {
         return mLoginAccessor;
     }
     
+    /**
+     * Get the accessor for the Sessions API
+     * @return
+     */
     public SessionsAccessor getSessionsAccessor() {
         return mSessionsAccessor;
     }
     
+    /**
+     * Get the Accessor for the Contacts API
+     * @return
+     */
     public ContactsAccessor getContactsAccessor() {
         return mContactsAccessor;
     }

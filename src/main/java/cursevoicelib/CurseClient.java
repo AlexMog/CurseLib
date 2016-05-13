@@ -59,6 +59,10 @@ public class CurseClient {
         Log.info("CurseClient initialised.");
     }
     
+    /**
+     * Used to generate a new pseudo-random machine key
+     * @return
+     */
     public static String generateMachineKey() {
         StringBuilder ret = new StringBuilder(MachineKeyTemplate);
         for (int i = 0; i < ret.length(); ++i) {
@@ -76,6 +80,13 @@ public class CurseClient {
         return ret.toString();
     }
     
+    /**
+     * Authenticate the client and generates a session ID, machine key and a connection token
+     * @return
+     * @throws IOException
+     * @throws URISyntaxException
+     * @throws AuthenticationFailedException
+     */
     public LoginAnswerBean authenticate() throws IOException, URISyntaxException, AuthenticationFailedException {
         LoginAnswerBean bean = mApi.getLoginAccessor().authenticate(mUsername, mPassword);
         
@@ -88,13 +99,19 @@ public class CurseClient {
         return bean;
     }
     
+    /**
+     * Connect to the WebSocket server for the notification listener
+     * @throws IOException
+     * @throws URISyntaxException
+     * @throws AuthenticationFailedException
+     */
     public void connectWS() throws IOException, URISyntaxException, AuthenticationFailedException {
         if (!mApi.getLoginAccessor().isAuthenticated()) authenticate();
         mClient.connect();
     }
    
     /***
-     * 
+     * Sends a message to a conversation, with an attachement ID
      * @param conversationId Id of the conversation
      * @param message message to send
      * @param attachmentId Attachement ID (if no attachment, use: "00000000-0000-0000-0000-000000000000")
@@ -117,10 +134,18 @@ public class CurseClient {
         sendMessage(conversationId, message, "00000000-0000-0000-0000-000000000000");
     }
     
+    /**
+     * Add a listener to the client
+     * @param listener
+     */
     public void addListener(ClientListener listener) {
         mClient.addListener(listener);
     }
     
+    /**
+     * Removes a listener from the client
+     * @param listener
+     */
     public void removeListener(ClientListener listener) {
         mClient.removeListener(listener);
     }

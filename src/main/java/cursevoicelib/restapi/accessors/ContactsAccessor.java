@@ -17,11 +17,26 @@ public class ContactsAccessor extends ApiAccessor {
         super(requester);
     }
     
+    /**
+     * Get the contact list
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public ContactsAnswerBean getContacts() throws ClientProtocolException, IOException, URISyntaxException {
         ApiResponse resp = mRequester.doGet(CONTACTS_URL + "contacts");
         return GsonHelper.fromJson(resp.getContent(), ContactsAnswerBean.class);
     }
     
+    /**
+     * Get a friendship using its ID
+     * @param friendshipId
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public FriendshipContactAnswerBean getFriendship(String friendshipId) throws ClientProtocolException, IOException, URISyntaxException {
         ApiResponse resp = mRequester.doGet(CONTACTS_URL + "friendship/" + friendshipId);
         return GsonHelper.fromJson(resp.getContent(), FriendshipContactAnswerBean.class);

@@ -18,7 +18,16 @@ public class LoginAccessor extends ApiAccessor {
     public LoginAccessor(ApiRequester requester) {
         super(requester);
     }
-
+    
+    /**
+     * Authenticate to the API
+     * @param username
+     * @param password
+     * @return
+     * @throws IOException
+     * @throws URISyntaxException
+     * @throws AuthenticationFailedException
+     */
     public LoginAnswerBean authenticate(String username, String password) throws IOException, URISyntaxException, AuthenticationFailedException {
         ApiResponse resp = mRequester.doPost(LOGINS_URL + "login",
                 new BasicNameValuePair("Username", username),
@@ -36,6 +45,10 @@ public class LoginAccessor extends ApiAccessor {
     
     //TODO: add the other login methods, and the register methods from the API (https://logins-v1.curseapp.net/help)
     
+    /**
+     * Return true if already authenticated
+     * @return
+     */
     public boolean isAuthenticated() {
         return mAuthenticated;
     }

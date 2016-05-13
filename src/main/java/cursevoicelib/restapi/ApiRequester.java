@@ -10,6 +10,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.EntityBuilder;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -30,6 +31,7 @@ public class ApiRequester {
             .build();
     private HttpPost mPostRequest = new HttpPost();
     private HttpGet mGetRequest = new HttpGet();
+    private HttpDelete mDeleteRequest = new HttpDelete();
     
     public ApiRequester() {
         mCookieHelper.retrieveCookie(mCookieStore);
@@ -40,10 +42,15 @@ public class ApiRequester {
     }
     
     public void addHeader(String header, String value) {
-        if (mPostRequest.containsHeader(header)) mPostRequest.removeHeaders(header);
-        if (mGetRequest.containsHeader(header)) mGetRequest.removeHeaders(header);
+        // Clear old headers
+        mPostRequest.removeHeaders(header);
+        mGetRequest.removeHeaders(header);
+        mDeleteRequest.removeHeaders(header);
+        
+        // Add header
         mPostRequest.addHeader(header, value);
         mGetRequest.addHeader(header, value);
+        mDeleteRequest.addHeader(header, value);
     }
     
     private ApiResponse doRequest(String url, HttpRequestBase requester) throws ClientProtocolException, IOException, URISyntaxException {
@@ -83,6 +90,10 @@ public class ApiRequester {
     public ApiResponse doPost(String url, NameValuePair... params) throws ClientProtocolException, IOException, URISyntaxException {
         mPostRequest.setEntity(EntityBuilder.create().setParameters(params).build());
         return doRequest(url, mPostRequest);
+    }
+    
+    public ApiResponse doDelete(String url) throws ClientProtocolException, IOException, URISyntaxException {
+        return doRequest(url, mDeleteRequest);
     }
 
     public void clearCookies() {

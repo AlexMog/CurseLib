@@ -36,4 +36,26 @@ public class SessionsAccessor extends ApiAccessor {
                 new BasicNameValuePair("PushKitToken", request.PushKitToken));
         return GsonHelper.fromJson(resp.getContent(), SessionAnswerBean.class);
     }
+    
+    /***
+     * Removes the session cookie
+     * @throws URISyntaxException 
+     * @throws IOException 
+     * @throws ClientProtocolException 
+     */
+    public void removeSessions() throws ClientProtocolException, IOException, URISyntaxException {
+        mRequester.doDelete(SESSIONS_URL + "sessions");
+    }
+    
+    /**
+     * Removes the session of a specific device
+     * @param machineKey
+     * @param deviceId
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    public void removeSession(String machineKey, String deviceId) throws ClientProtocolException, IOException, URISyntaxException {
+        mRequester.doDelete(SESSIONS_URL + "sessions/" + machineKey + "/tokens/" + deviceId);
+    }
 }

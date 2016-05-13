@@ -29,7 +29,7 @@ import cursevoicelib.wsclient.beans.SendMessageBean;
 public class CurseClient {
     public static final String USERDATA_PATH = System.getProperty("user.home") + File.separator + "curseclientlib" + File.separator;
     public static final String CLIENT_VERSION = "7.0.30";
-    private RestApi mApi = new RestApi();
+    private final RestApi mApi = new RestApi();
     private String mUsername, mPassword, mSessionId, mMachineKey;
     private int mUserId;
     private Client mClient;

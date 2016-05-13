@@ -34,6 +34,8 @@ public class LoginAccessor extends ApiAccessor {
         return bean;
     }
     
+    //TODO: add the other login methods, and the register methods from the API (https://logins-v1.curseapp.net/help)
+    
     public boolean isAuthenticated() {
         return mAuthenticated;
     }

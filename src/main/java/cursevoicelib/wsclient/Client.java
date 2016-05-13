@@ -58,13 +58,13 @@ public class Client extends ClientRewrite {
     
     public void sendPacket(Packet bean) {
         String toSend = GsonHelper.toJson(bean);
-        Log.info("Sending: " + toSend);
+        Log.trace("Sending: " + toSend);
         send(toSend);
     }
 
     @Override
     public void onMessage(String message) {
-        Log.info(message);
+        Log.trace(message);
         mInterpretator.interpretate(message);
     }
 

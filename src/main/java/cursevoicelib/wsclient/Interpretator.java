@@ -7,8 +7,10 @@ import org.java_websocket.handshake.ServerHandshake;
 
 import cursevoicelib.helpers.GsonHelper;
 import cursevoicelib.util.log.Log;
+import cursevoicelib.wsclient.beans.JoinAnswerBean;
 import cursevoicelib.wsclient.beans.Packet;
 import cursevoicelib.wsclient.beans.ReceivedMessageBean;
+import cursevoicelib.wsclient.events.factories.JoinFactory;
 import cursevoicelib.wsclient.events.factories.MessageFactory;
 
 
@@ -32,10 +34,13 @@ public class Interpretator {
         try {
             Packet packet = GsonHelper.fromJson(fullJson, Packet.class);
             if (packet.TypeID == -635182161) {
-                for (ClientListener l : mListeners) {
-                    l.onMessage(MessageFactory.beanToMessage(mClient.getCurse(),
-                            GsonHelper.fromJson(fullJson, ReceivedMessageBean.class)));
-                }
+                for (ClientListener l : mListeners) l.onMessage(MessageFactory.beanToMessage(mClient.getCurse(),
+                                                        GsonHelper.fromJson(fullJson, ReceivedMessageBean.class)));
+            } else if (packet.TypeID == -815187584) {
+                for (ClientListener l : mListeners) l.onJoinResponse(JoinFactory.beanToEvent(mClient.getCurse(),
+                                                        GsonHelper.fromJson(fullJson, JoinAnswerBean.class)));
+            } else {
+                Log.warn("Packet " + packet.TypeID + " not registered Please send the trace to the doc or my creator. Trace: " + fullJson);
             }
         } catch (Exception e) {
             Log.warn("Interpretate", e);

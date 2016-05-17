@@ -28,7 +28,7 @@ import cursevoicelib.wsclient.beans.SendMessageBean;
  */
 public class CurseClient {
     public static final String USERDATA_PATH = System.getProperty("user.home") + File.separator + "curseclientlib" + File.separator;
-    public static final String CLIENT_VERSION = "7.0.30";
+    public static final String CLIENT_VERSION = "7.0.32";
     private final RestApi mApi = new RestApi();
     private String mUsername, mPassword, mSessionId, mMachineKey;
     private int mUserId;
@@ -41,6 +41,14 @@ public class CurseClient {
         mUsername = username;
         mPassword = password;
         mClient = new Client(new URI("wss://notifications-v1.curseapp.net/"), this);
+    }
+    
+    /**
+     * ATTETION: can be dangerous to use this object if you don't know what you are doing.
+     * @return
+     */
+    public RestApi getRestApi() {
+        return mApi;
     }
     
     private CurseClient() throws SecurityException, IOException {
@@ -94,7 +102,7 @@ public class CurseClient {
         SessionAnswerBean sessionBean = mApi.getSessionsAccessor().generateSession(new SessionRequestBean(mMachineKey, null, null, 7));
         mSessionId = sessionBean.SessionID;
         mUserId = sessionBean.User.UserID;
-        Log.info("Machine Key: " + mMachineKey + " - SessionID: " + mSessionId + " - UserID: " + mUserId);
+//        Log.info("Machine Key: " + mMachineKey + " - SessionID: " + mSessionId + " - UserID: " + mUserId);
         mClient.setCredentials(mMachineKey, mSessionId, mUserId);
         return bean;
     }
@@ -108,6 +116,24 @@ public class CurseClient {
     public void connectWS() throws IOException, URISyntaxException, AuthenticationFailedException {
         if (!mApi.getLoginAccessor().isAuthenticated()) authenticate();
         mClient.connect();
+    }
+    
+    /**
+     * Close the connection of the WebSocket
+     */
+    public void disconnectWS() {
+        mClient.close();
+    }
+    
+    /**
+     * Reconnects the WebSocket
+     * @throws IOException
+     * @throws URISyntaxException
+     * @throws AuthenticationFailedException
+     */
+    public void reconnectWS() throws IOException, URISyntaxException, AuthenticationFailedException {
+        disconnectWS();
+        connectWS();
     }
    
     /***

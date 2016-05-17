@@ -1,6 +1,7 @@
 package cursevoicelib.restapi;
 
 import cursevoicelib.restapi.accessors.ContactsAccessor;
+import cursevoicelib.restapi.accessors.ConversationsAccessor;
 import cursevoicelib.restapi.accessors.LoginAccessor;
 import cursevoicelib.restapi.accessors.SessionsAccessor;
 
@@ -9,12 +10,12 @@ public class RestApi {
             GIVEAWAYS_URL = "https://giveaways-v1.curseapp.net/",
             GROUPS_URL = "https://groups-v1.curseapp.net/",
             SYNC_URL = "https://sync-v1.curseapp.net/",
-            POOL_URL = "https://polls-v1.curseapp.net/",
-            CONVERSATION_URL = "https://conversations-v1.curseapp.net/";
+            POOL_URL = "https://polls-v1.curseapp.net/";
     private ApiRequester mRequester = new ApiRequester();
     private final LoginAccessor mLoginAccessor = new LoginAccessor(mRequester);
     private final SessionsAccessor mSessionsAccessor = new SessionsAccessor(mRequester);
     private final ContactsAccessor mContactsAccessor = new ContactsAccessor(mRequester);
+    private final ConversationsAccessor mConversationsAccessors = new ConversationsAccessor(mRequester);
     
     /**
      * Return true if the client is already authenticated
@@ -53,5 +54,9 @@ public class RestApi {
      */
     public ContactsAccessor getContactsAccessor() {
         return mContactsAccessor;
+    }
+    
+    public ConversationsAccessor getConversationsAccessor() {
+        return mConversationsAccessors;
     }
 }

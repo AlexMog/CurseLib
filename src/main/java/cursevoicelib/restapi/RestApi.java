@@ -2,20 +2,25 @@ package cursevoicelib.restapi;
 
 import cursevoicelib.restapi.accessors.ContactsAccessor;
 import cursevoicelib.restapi.accessors.ConversationsAccessor;
+import cursevoicelib.restapi.accessors.GiveawaysAccessor;
+import cursevoicelib.restapi.accessors.GroupsAccessor;
 import cursevoicelib.restapi.accessors.LoginAccessor;
+import cursevoicelib.restapi.accessors.PollsAccessor;
+import cursevoicelib.restapi.accessors.ReportingAccessor;
 import cursevoicelib.restapi.accessors.SessionsAccessor;
+import cursevoicelib.restapi.accessors.SyncAccessor;
 
 public class RestApi {
-    private static final String REPORTING_URL = "https://reporting-v1.curseapp.net/",
-            GIVEAWAYS_URL = "https://giveaways-v1.curseapp.net/",
-            GROUPS_URL = "https://groups-v1.curseapp.net/",
-            SYNC_URL = "https://sync-v1.curseapp.net/",
-            POOL_URL = "https://polls-v1.curseapp.net/";
     private ApiRequester mRequester = new ApiRequester();
     private final LoginAccessor mLoginAccessor = new LoginAccessor(mRequester);
     private final SessionsAccessor mSessionsAccessor = new SessionsAccessor(mRequester);
     private final ContactsAccessor mContactsAccessor = new ContactsAccessor(mRequester);
     private final ConversationsAccessor mConversationsAccessors = new ConversationsAccessor(mRequester);
+    private final GiveawaysAccessor mGiveawaysAccessor = new GiveawaysAccessor(mRequester);
+    private final GroupsAccessor mGroupsAccessor = new GroupsAccessor(mRequester);
+    private final PollsAccessor mPollsAccessor = new PollsAccessor(mRequester);
+    private final ReportingAccessor mReportingAccessor = new ReportingAccessor(mRequester);
+    private final SyncAccessor mSyncAccessor = new SyncAccessor(mRequester);
     
     /**
      * Return true if the client is already authenticated
@@ -56,7 +61,51 @@ public class RestApi {
         return mContactsAccessor;
     }
     
+    /**
+     * Get the Accessor for the Conversations API
+     * @return
+     */
     public ConversationsAccessor getConversationsAccessor() {
         return mConversationsAccessors;
+    }
+    
+    /**
+     * Get the Accessor for the Giveaways API
+     * @return
+     */
+    public GiveawaysAccessor getGiveawaysAccessor() {
+        return mGiveawaysAccessor;
+    }
+    
+    /**
+     * Get the Accessor for the Groups API
+     * @return
+     */
+    public GroupsAccessor getGroupsAccessor() {
+        return mGroupsAccessor;
+    }
+    
+    /**
+     * Get the Accessor for the Polls API
+     * @return
+     */
+    public PollsAccessor getPollsAccessor() {
+        return mPollsAccessor;
+    }
+    
+    /**
+     * Get the Accessor for the Reporting API
+     * @return
+     */
+    public ReportingAccessor getReportingAccessor() {
+        return mReportingAccessor;
+    }
+    
+    /**
+     * Get the Accessor for the Sync API
+     * @return
+     */
+    public SyncAccessor getSyncAccessor() {
+        return mSyncAccessor;
     }
 }

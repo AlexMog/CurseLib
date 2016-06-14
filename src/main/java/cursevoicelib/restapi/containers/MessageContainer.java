@@ -74,7 +74,7 @@ public class MessageContainer {
         return mServerId;
     }
     
-    public String getclientId() {
+    public String getClientId() {
         return mClientId;
     }
     

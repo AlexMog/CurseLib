@@ -3,7 +3,7 @@ package cursevoicelib.wsclient.events;
 import cursevoicelib.CurseClient;
 
 public abstract class ClientEvent {
-    private final CurseClient mClient;
+    protected final CurseClient mClient;
     
     public ClientEvent(CurseClient client) {
         mClient = client;
